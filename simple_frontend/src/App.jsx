@@ -465,361 +465,725 @@ function App() {
         </button>
       </header>
 
-      <div className="buttons-container">
-        <h1 className="title">Starknet ERC 20</h1>
+      <h1 className="title">Starknet ERC 20</h1>
+      <div className="main-content">
+        {/* Card 1 */}
+        <div className="card card-1">
+          <div className="group-1">
+            <div>
+              <button onClick={getName}>Get Name</button>
+              <h2 className="outputs">{`${name ? name : " "}`}</h2>
+            </div>
 
-        <div className="card">
-          <div>
-            <button onClick={getName}>Get Name</button>
-            <h2 className="outputs">{`${name ? name : " "}`}</h2>
+            <div className="separator"></div>
+            <div>
+              <button onClick={getSymbol}>Get Symbol</button>
+              <h2 className="outputs">{`${symbol ? symbol : " "}`}</h2>
+            </div>
+
+            <div className="separator"></div>
+            <div>
+              <button onClick={getOwner}>Get Owner</button>
+              <h2 className="outputs">{`${owner ? owner : " "}`}</h2>
+            </div>
+
+            <div className="separator"></div>
+            <div>
+              <button onClick={getDecimal}>Get Decimal</button>
+              <h2 className="outputs">{`${decimal ? decimal : " "}`}</h2>
+            </div>
+
+            <div className="separator"></div>
+            <div>
+              <button onClick={getTotalSupply}>Get Total Supply</button>
+              <h2 className="outputs">{`${
+                totalSupply ? totalSupply : " "
+              }`}</h2>
+            </div>
+
+            <div className="separator"></div>
+            {/* Allowance */}
+            <div>
+              <button onClick={() => setFormVisible("allowance")}>
+                Allowance
+              </button>
+              {formVisible === "allowance" && (
+                <form
+                  className="function-form"
+                  onSubmit={(e) => {
+                    e.preventDefault();
+                    getAllowance(aOwn, aSpen);
+                  }}
+                >
+                  <input
+                    type="text"
+                    placeholder="Owner"
+                    value={aOwn}
+                    onChange={(e) => setAOwn(e.target.value)}
+                  />
+                  <input
+                    type="text"
+                    placeholder="Spender"
+                    value={aSpen}
+                    onChange={(e) => setASpen(e.target.value)}
+                  />
+                  <button type="submit">Submit</button>
+                  <h2 className="outputs">{`${
+                    allowance ? allowance : " "
+                  }`}</h2>
+                </form>
+              )}
+            </div>
+
+            <div className="separator"></div>
+            {/* Balance_of */}
+            <div>
+              <button onClick={() => setFormVisible("balance_of")}>
+                Get Balance
+              </button>
+              {formVisible === "balance_of" && (
+                <form
+                  className="function-form"
+                  onSubmit={(e) => {
+                    e.preventDefault();
+                    balanceOf(balAdd);
+                  }}
+                >
+                  <input
+                    type="text"
+                    placeholder="Enter address"
+                    value={balAdd}
+                    onChange={(e) => setBalAdd(e.target.value)}
+                  />
+                  <button type="submit">Submit</button>
+                  <h2 className="outputs">{`${balance ? balance : " "}`}</h2>
+                </form>
+              )}
+            </div>
           </div>
+        </div>
 
-          <div className="separator"></div>
-          <div>
-            <button onClick={getSymbol}>Get Symbol</button>
-            <h2 className="outputs">{`${symbol ? symbol : " "}`}</h2>
+        {/* Card 2 */}
+        <div className="card card-2">
+          <div className="group-2">
+            {/* Mint */}
+            <div>
+              <button onClick={() => setFormVisible("mint")}>
+                Mint Tokens
+              </button>
+              {formVisible === "mint" && (
+                <form
+                  className="function-form"
+                  onSubmit={(e) => {
+                    e.preventDefault();
+                    mint(mintRec, mintAmt);
+                  }}
+                >
+                  <input
+                    type="text"
+                    placeholder="Recipient"
+                    value={mintRec}
+                    onChange={(e) => setMintRec(e.target.value)}
+                  />
+                  <input
+                    type="number"
+                    placeholder="Amount"
+                    value={mintAmt}
+                    onChange={(e) => setMintAmt(e.target.value)}
+                  />
+                  <button type="submit">Submit</button>
+                </form>
+              )}
+            </div>
+
+            <div className="separator"></div>
+
+            {/* Transfer */}
+            <div>
+              <button onClick={() => setFormVisible("transfer")}>
+                Transfer Tokens
+              </button>
+              {formVisible === "transfer" && (
+                <form
+                  className="function-form"
+                  onSubmit={(e) => {
+                    e.preventDefault();
+                    transfer(tranRec, tranAmt);
+                  }}
+                >
+                  <input
+                    type="text"
+                    placeholder="Recipient"
+                    value={tranRec}
+                    onChange={(e) => setTranRec(e.target.value)}
+                  />
+                  <input
+                    type="number"
+                    placeholder="Amount"
+                    value={tranAmt}
+                    onChange={(e) => setTranAmt(e.target.value)}
+                  />
+                  <button type="submit">Submit</button>
+                </form>
+              )}
+            </div>
+
+            <div className="separator"></div>
+
+            {/* Approve */}
+            <div>
+              <button onClick={() => setFormVisible("approve")}>Approve</button>
+              {formVisible === "approve" && (
+                <form
+                  className="function-form"
+                  onSubmit={(e) => {
+                    e.preventDefault();
+                    approve(aSpender, aAmount);
+                  }}
+                >
+                  <input
+                    type="text"
+                    placeholder="Spender"
+                    value={aSpender}
+                    onChange={(e) => setASpender(e.target.value)}
+                  />
+                  <input
+                    type="number"
+                    placeholder="Amount"
+                    value={aAmount}
+                    onChange={(e) => setAAmount(e.target.value)}
+                  />
+                  <button type="submit">Submit</button>
+                </form>
+              )}
+            </div>
+
+            <div className="separator"></div>
+
+            {/* Transfer From */}
+            <div>
+              <button onClick={() => setFormVisible("transferFrom")}>
+                Transfer From
+              </button>
+              {formVisible === "transferFrom" && (
+                <form
+                  className="function-form"
+                  onSubmit={(e) => {
+                    e.preventDefault();
+                    transferFrom(tfOwner, tfRecipient, tfAmount);
+                  }}
+                >
+                  <input
+                    type="text"
+                    placeholder="Owner"
+                    value={tfOwner}
+                    onChange={(e) => setTFOwner(e.target.value)}
+                  />
+                  <input
+                    type="text"
+                    placeholder="Recipient"
+                    value={tfRecipient}
+                    onChange={(e) => setTFRecipient(e.target.value)}
+                  />
+                  <input
+                    type="number"
+                    placeholder="Amount"
+                    value={tfAmount}
+                    onChange={(e) => setTFAmount(e.target.value)}
+                  />
+                  <button type="submit">Submit</button>
+                </form>
+              )}
+            </div>
+
+            <div className="separator"></div>
+
+            {/* Increase Allowance */}
+            <div>
+              <button onClick={() => setFormVisible("increaseAllowance")}>
+                Allowance +
+              </button>
+              {formVisible === "increaseAllowance" && (
+                <form
+                  className="function-form"
+                  onSubmit={(e) => {
+                    e.preventDefault();
+                    increaseAllowance(iSpender, iAmount);
+                  }}
+                >
+                  <input
+                    type="text"
+                    placeholder="Spender"
+                    value={iSpender}
+                    onChange={(e) => setISpender(e.target.value)}
+                  />
+                  <input
+                    type="number"
+                    placeholder="Amount"
+                    value={iAmount}
+                    onChange={(e) => setIAmount(e.target.value)}
+                  />
+                  <button type="submit">Submit</button>
+                </form>
+              )}
+            </div>
+            <div className="separator"></div>
+
+            {/* Decrease Allowance */}
+            <div>
+              <button onClick={() => setFormVisible("decreaseAllowance")}>
+                Allowance -
+              </button>
+              {formVisible === "decreaseAllowance" && (
+                <form
+                  className="function-form"
+                  onSubmit={(e) => {
+                    e.preventDefault();
+                    decreaseAllowance(dSpender, dAmount);
+                  }}
+                >
+                  <input
+                    type="text"
+                    placeholder="Spender"
+                    value={dSpender}
+                    onChange={(e) => setDSpender(e.target.value)}
+                  />
+                  <input
+                    type="number"
+                    placeholder="Amount"
+                    value={dAmount}
+                    onChange={(e) => setDAmount(e.target.value)}
+                  />
+                  <button type="submit">Submit</button>
+                </form>
+              )}
+            </div>
+            <div className="separator"></div>
+
+            {/* Burn */}
+            <div>
+              <button onClick={() => setFormVisible("burn")}>Burn</button>
+              {formVisible === "burn" && (
+                <form
+                  className="function-form"
+                  onSubmit={(e) => {
+                    e.preventDefault();
+                    burn(bAmount);
+                  }}
+                >
+                  <input
+                    type="number"
+                    placeholder="Amount"
+                    value={bAmount}
+                    onChange={(e) => setBAmount(e.target.value)}
+                  />
+                  <button type="submit">Submit</button>
+                </form>
+              )}
+            </div>
+            <div className="separator"></div>
+
+            {/* Init Ownership */}
+            <div>
+              <button onClick={() => setFormVisible("initOwnership")}>
+                Init Ownership
+              </button>
+              {formVisible === "initOwnership" && (
+                <form
+                  className="function-form"
+                  onSubmit={(e) => {
+                    e.preventDefault();
+                    initOwnership(newOwner);
+                  }}
+                >
+                  <input
+                    type="text"
+                    placeholder="New Owner"
+                    value={newOwner}
+                    onChange={(e) => setNewOwner(e.target.value)}
+                  />
+                  <button type="submit">Submit</button>
+                </form>
+              )}
+            </div>
+            <div className="separator"></div>
+
+            {/* Claim Ownership */}
+            <div>
+              <button onClick={claimOwnership}>Claim Ownership</button>
+            </div>
+
+            {/* Other functions */}
+            {/* Transfer From, Increase Allowance, Decrease Allowance, Burn, Init Ownership, Claim Ownership */}
           </div>
-
-          <div className="separator"></div>
-          <div>
-            <button onClick={getOwner}>Get Owner</button>
-            <h2 className="outputs">{`${owner ? owner : " "}`}</h2>
-          </div>
-
-          <div className="separator"></div>
-          <div>
-            <button onClick={getDecimal}>Get Decimal</button>
-            <h2 className="outputs">{`${decimal ? decimal : " "}`}</h2>
-          </div>
-          <div className="separator"></div>
-          <div>
-            <button onClick={getTotalSupply}>Get Total Supply</button>
-            <h2 className="outputs">{`${totalSupply ? totalSupply : " "}`}</h2>
-          </div>
-
-          <div className="separator"></div>
-          {/* Allowance */}
-          <div>
-            <button onClick={() => setFormVisible("allowance")}>
-              Allowance
-            </button>
-            {formVisible === "allowance" && (
-              <form
-                className="function-form"
-                onSubmit={(e) => {
-                  e.preventDefault();
-                  getAllowance(aOwn, aSpen);
-                }}
-              >
-                <input
-                  type="text"
-                  placeholder="Owner"
-                  value={aOwn}
-                  onChange={(e) => setAOwn(e.target.value)}
-                />
-                <input
-                  type="text"
-                  placeholder="Spender"
-                  value={aSpen}
-                  onChange={(e) => setASpen(e.target.value)}
-                />
-                <button type="submit">Submit</button>
-
-                <h2 className="outputs">{`${allowance ? allowance : " "}`}</h2>
-              </form>
-            )}
-          </div>
-
-          <div className="separator"></div>
-
-          {/* Balance_of */}
-          <div>
-            <button onClick={() => setFormVisible("balance_of")}>
-              Get Balance
-            </button>
-            {formVisible === "balance_of" && (
-              <form
-                className="function-form"
-                onSubmit={(e) => {
-                  e.preventDefault();
-                  balanceOf(balAdd);
-                }}
-              >
-                <input
-                  type="text"
-                  placeholder="Enter address"
-                  value={balAdd}
-                  onChange={(e) => setBalAdd(e.target.value)}
-                />
-                <button type="submit">Submit</button>
-
-                <h2 className="outputs">{`${balance ? balance : " "}`}</h2>
-              </form>
-            )}
-          </div>
-
-          <div className="separator"></div>
-
-          {/* Mint */}
-          <div>
-            <button onClick={() => setFormVisible("mint")}>Mint Tokens</button>
-            {formVisible === "mint" && (
-              <form
-                className="function-form"
-                onSubmit={(e) => {
-                  e.preventDefault();
-                  mint(mintRec, mintAmt);
-                }}
-              >
-                <input
-                  type="text"
-                  placeholder="Recipient"
-                  value={mintRec}
-                  onChange={(e) => setMintRec(e.target.value)}
-                />
-                <input
-                  type="number"
-                  placeholder="Amount"
-                  value={mintAmt}
-                  onChange={(e) => setMintAmt(e.target.value)}
-                />
-                <button type="submit">Submit</button>
-              </form>
-            )}
-          </div>
-
-          <div className="separator"></div>
-
-          {/* Transfer */}
-          <div>
-            <button onClick={() => setFormVisible("transfer")}>
-              Transfer Tokens
-            </button>
-            {formVisible === "transfer" && (
-              <form
-                className="function-form"
-                onSubmit={(e) => {
-                  e.preventDefault();
-                  transfer(tranRec, tranAmt);
-                }}
-              >
-                <input
-                  type="text"
-                  placeholder="Recipient"
-                  value={tranRec}
-                  onChange={(e) => setTranRec(e.target.value)}
-                />
-                <input
-                  type="number"
-                  placeholder="Amount"
-                  value={tranAmt}
-                  onChange={(e) => setTranAmt(e.target.value)}
-                />
-                <button type="submit">Submit</button>
-              </form>
-            )}
-          </div>
-          <div className="separator"></div>
-
-          {/* Approve */}
-          <div>
-            <button onClick={() => setFormVisible("approve")}>Approve</button>
-            {formVisible === "approve" && (
-              <form
-                className="function-form"
-                onSubmit={(e) => {
-                  e.preventDefault();
-                  approve(aSpender, aAmount);
-                }}
-              >
-                <input
-                  type="text"
-                  placeholder="Spender"
-                  value={aSpender}
-                  onChange={(e) => setASpender(e.target.value)}
-                />
-                <input
-                  type="number"
-                  placeholder="Amount"
-                  value={aAmount}
-                  onChange={(e) => setAAmount(e.target.value)}
-                />
-                <button type="submit">Submit</button>
-              </form>
-            )}
-          </div>
-          <div className="separator"></div>
-
-          {/* Transfer From */}
-          <div>
-            <button onClick={() => setFormVisible("transferFrom")}>
-              Transfer From
-            </button>
-            {formVisible === "transferFrom" && (
-              <form
-                className="function-form"
-                onSubmit={(e) => {
-                  e.preventDefault();
-                  transferFrom(tfOwner, tfRecipient, tfAmount);
-                }}
-              >
-                <input
-                  type="text"
-                  placeholder="Owner"
-                  value={tfOwner}
-                  onChange={(e) => setTFOwner(e.target.value)}
-                />
-                <input
-                  type="text"
-                  placeholder="Recipient"
-                  value={tfRecipient}
-                  onChange={(e) => setTFRecipient(e.target.value)}
-                />
-                <input
-                  type="number"
-                  placeholder="Amount"
-                  value={tfAmount}
-                  onChange={(e) => setTFAmount(e.target.value)}
-                />
-                <button type="submit">Submit</button>
-              </form>
-            )}
-          </div>
-
-          <div className="separator"></div>
-
-          {/* Increase Allowance */}
-          <div>
-            <button onClick={() => setFormVisible("increaseAllowance")}>
-              Allowance +
-            </button>
-            {formVisible === "increaseAllowance" && (
-              <form
-                className="function-form"
-                onSubmit={(e) => {
-                  e.preventDefault();
-                  increaseAllowance(iSpender, iAmount);
-                }}
-              >
-                <input
-                  type="text"
-                  placeholder="Spender"
-                  value={iSpender}
-                  onChange={(e) => setISpender(e.target.value)}
-                />
-                <input
-                  type="number"
-                  placeholder="Amount"
-                  value={iAmount}
-                  onChange={(e) => setIAmount(e.target.value)}
-                />
-                <button type="submit">Submit</button>
-              </form>
-            )}
-          </div>
-          <div className="separator"></div>
-
-          {/* Decrease Allowance */}
-          <div>
-            <button onClick={() => setFormVisible("decreaseAllowance")}>
-              Allowance -
-            </button>
-            {formVisible === "decreaseAllowance" && (
-              <form
-                className="function-form"
-                onSubmit={(e) => {
-                  e.preventDefault();
-                  decreaseAllowance(dSpender, dAmount);
-                }}
-              >
-                <input
-                  type="text"
-                  placeholder="Spender"
-                  value={dSpender}
-                  onChange={(e) => setDSpender(e.target.value)}
-                />
-                <input
-                  type="number"
-                  placeholder="Amount"
-                  value={dAmount}
-                  onChange={(e) => setDAmount(e.target.value)}
-                />
-                <button type="submit">Submit</button>
-              </form>
-            )}
-          </div>
-          <div className="separator"></div>
-
-          {/* Burn */}
-          <div>
-            <button onClick={() => setFormVisible("burn")}>Burn</button>
-            {formVisible === "burn" && (
-              <form
-                className="function-form"
-                onSubmit={(e) => {
-                  e.preventDefault();
-                  burn(bAmount);
-                }}
-              >
-                <input
-                  type="number"
-                  placeholder="Amount"
-                  value={bAmount}
-                  onChange={(e) => setBAmount(e.target.value)}
-                />
-                <button type="submit">Submit</button>
-              </form>
-            )}
-          </div>
-          <div className="separator"></div>
-
-          {/* Init Ownership */}
-          <div>
-            <button onClick={() => setFormVisible("initOwnership")}>
-              Init Ownership
-            </button>
-            {formVisible === "initOwnership" && (
-              <form
-                className="function-form"
-                onSubmit={(e) => {
-                  e.preventDefault();
-                  initOwnership(newOwner);
-                }}
-              >
-                <input
-                  type="text"
-                  placeholder="New Owner"
-                  value={newOwner}
-                  onChange={(e) => setNewOwner(e.target.value)}
-                />
-                <button type="submit">Submit</button>
-              </form>
-            )}
-          </div>
-          <div className="separator"></div>
-
-          {/* Claim Ownership */}
-          <div>
-            <button onClick={claimOwnership}>Claim Ownership</button>
-          </div>
-
-          <ToastContainer
-            position="top-right"
-            autoClose={5000}
-            hideProgressBar={false}
-            newestOnTop={false}
-            closeOnClick
-            rtl={false}
-            pauseOnFocusLoss
-            draggable
-            pauseOnHover
-            transition:Bounce
-            theme="colored"
-          />
         </div>
       </div>
     </div>
   );
+
+  // return (
+  //   <div className="app-container">
+  //     <header className="header">
+  //       <button onClick={connectWallet} className="connect-btn">
+  //         {address ? `${address.substring(0, 10)}...` : "Connect Wallet"}
+  //       </button>
+  //     </header>
+
+  //     <div className="buttons-container">
+  //       <h1 className="title">Starknet ERC 20</h1>
+
+  //       <div className="card">
+  //         <div>
+  //           <button onClick={getName}>Get Name</button>
+  //           <h2 className="outputs">{`${name ? name : " "}`}</h2>
+  //         </div>
+
+  //         <div className="separator"></div>
+  //         <div>
+  //           <button onClick={getSymbol}>Get Symbol</button>
+  //           <h2 className="outputs">{`${symbol ? symbol : " "}`}</h2>
+  //         </div>
+
+  //         <div className="separator"></div>
+  //         <div>
+  //           <button onClick={getOwner}>Get Owner</button>
+  //           <h2 className="outputs">{`${owner ? owner : " "}`}</h2>
+  //         </div>
+
+  //         <div className="separator"></div>
+  //         <div>
+  //           <button onClick={getDecimal}>Get Decimal</button>
+  //           <h2 className="outputs">{`${decimal ? decimal : " "}`}</h2>
+  //         </div>
+  //         <div className="separator"></div>
+  //         <div>
+  //           <button onClick={getTotalSupply}>Get Total Supply</button>
+  //           <h2 className="outputs">{`${totalSupply ? totalSupply : " "}`}</h2>
+  //         </div>
+
+  //         <div className="separator"></div>
+  //         {/* Allowance */}
+  //         <div>
+  //           <button onClick={() => setFormVisible("allowance")}>
+  //             Allowance
+  //           </button>
+  //           {formVisible === "allowance" && (
+  //             <form
+  //               className="function-form"
+  //               onSubmit={(e) => {
+  //                 e.preventDefault();
+  //                 getAllowance(aOwn, aSpen);
+  //               }}
+  //             >
+  //               <input
+  //                 type="text"
+  //                 placeholder="Owner"
+  //                 value={aOwn}
+  //                 onChange={(e) => setAOwn(e.target.value)}
+  //               />
+  //               <input
+  //                 type="text"
+  //                 placeholder="Spender"
+  //                 value={aSpen}
+  //                 onChange={(e) => setASpen(e.target.value)}
+  //               />
+  //               <button type="submit">Submit</button>
+
+  //               <h2 className="outputs">{`${allowance ? allowance : " "}`}</h2>
+  //             </form>
+  //           )}
+  //         </div>
+
+  //         <div className="separator"></div>
+
+  //         {/* Balance_of */}
+  //         <div>
+  //           <button onClick={() => setFormVisible("balance_of")}>
+  //             Get Balance
+  //           </button>
+  //           {formVisible === "balance_of" && (
+  //             <form
+  //               className="function-form"
+  //               onSubmit={(e) => {
+  //                 e.preventDefault();
+  //                 balanceOf(balAdd);
+  //               }}
+  //             >
+  //               <input
+  //                 type="text"
+  //                 placeholder="Enter address"
+  //                 value={balAdd}
+  //                 onChange={(e) => setBalAdd(e.target.value)}
+  //               />
+  //               <button type="submit">Submit</button>
+
+  //               <h2 className="outputs">{`${balance ? balance : " "}`}</h2>
+  //             </form>
+  //           )}
+  //         </div>
+
+  //         <div className="separator"></div>
+
+  //         {/* Mint */}
+  //         <div>
+  //           <button onClick={() => setFormVisible("mint")}>Mint Tokens</button>
+  //           {formVisible === "mint" && (
+  //             <form
+  //               className="function-form"
+  //               onSubmit={(e) => {
+  //                 e.preventDefault();
+  //                 mint(mintRec, mintAmt);
+  //               }}
+  //             >
+  //               <input
+  //                 type="text"
+  //                 placeholder="Recipient"
+  //                 value={mintRec}
+  //                 onChange={(e) => setMintRec(e.target.value)}
+  //               />
+  //               <input
+  //                 type="number"
+  //                 placeholder="Amount"
+  //                 value={mintAmt}
+  //                 onChange={(e) => setMintAmt(e.target.value)}
+  //               />
+  //               <button type="submit">Submit</button>
+  //             </form>
+  //           )}
+  //         </div>
+
+  //         <div className="separator"></div>
+
+  //         {/* Transfer */}
+  //         <div>
+  //           <button onClick={() => setFormVisible("transfer")}>
+  //             Transfer Tokens
+  //           </button>
+  //           {formVisible === "transfer" && (
+  //             <form
+  //               className="function-form"
+  //               onSubmit={(e) => {
+  //                 e.preventDefault();
+  //                 transfer(tranRec, tranAmt);
+  //               }}
+  //             >
+  //               <input
+  //                 type="text"
+  //                 placeholder="Recipient"
+  //                 value={tranRec}
+  //                 onChange={(e) => setTranRec(e.target.value)}
+  //               />
+  //               <input
+  //                 type="number"
+  //                 placeholder="Amount"
+  //                 value={tranAmt}
+  //                 onChange={(e) => setTranAmt(e.target.value)}
+  //               />
+  //               <button type="submit">Submit</button>
+  //             </form>
+  //           )}
+  //         </div>
+  //         <div className="separator"></div>
+
+  //         {/* Approve */}
+  //         <div>
+  //           <button onClick={() => setFormVisible("approve")}>Approve</button>
+  //           {formVisible === "approve" && (
+  //             <form
+  //               className="function-form"
+  //               onSubmit={(e) => {
+  //                 e.preventDefault();
+  //                 approve(aSpender, aAmount);
+  //               }}
+  //             >
+  //               <input
+  //                 type="text"
+  //                 placeholder="Spender"
+  //                 value={aSpender}
+  //                 onChange={(e) => setASpender(e.target.value)}
+  //               />
+  //               <input
+  //                 type="number"
+  //                 placeholder="Amount"
+  //                 value={aAmount}
+  //                 onChange={(e) => setAAmount(e.target.value)}
+  //               />
+  //               <button type="submit">Submit</button>
+  //             </form>
+  //           )}
+  //         </div>
+  // <div className="separator"></div>
+
+  // {/* Transfer From */}
+  // <div>
+  //   <button onClick={() => setFormVisible("transferFrom")}>
+  //     Transfer From
+  //   </button>
+  //   {formVisible === "transferFrom" && (
+  //     <form
+  //       className="function-form"
+  //       onSubmit={(e) => {
+  //         e.preventDefault();
+  //         transferFrom(tfOwner, tfRecipient, tfAmount);
+  //       }}
+  //     >
+  //       <input
+  //         type="text"
+  //         placeholder="Owner"
+  //         value={tfOwner}
+  //         onChange={(e) => setTFOwner(e.target.value)}
+  //       />
+  //       <input
+  //         type="text"
+  //         placeholder="Recipient"
+  //         value={tfRecipient}
+  //         onChange={(e) => setTFRecipient(e.target.value)}
+  //       />
+  //       <input
+  //         type="number"
+  //         placeholder="Amount"
+  //         value={tfAmount}
+  //         onChange={(e) => setTFAmount(e.target.value)}
+  //       />
+  //       <button type="submit">Submit</button>
+  //     </form>
+  //   )}
+  // </div>
+
+  // <div className="separator"></div>
+
+  // {/* Increase Allowance */}
+  // <div>
+  //   <button onClick={() => setFormVisible("increaseAllowance")}>
+  //     Allowance +
+  //   </button>
+  //   {formVisible === "increaseAllowance" && (
+  //     <form
+  //       className="function-form"
+  //       onSubmit={(e) => {
+  //         e.preventDefault();
+  //         increaseAllowance(iSpender, iAmount);
+  //       }}
+  //     >
+  //       <input
+  //         type="text"
+  //         placeholder="Spender"
+  //         value={iSpender}
+  //         onChange={(e) => setISpender(e.target.value)}
+  //       />
+  //       <input
+  //         type="number"
+  //         placeholder="Amount"
+  //         value={iAmount}
+  //         onChange={(e) => setIAmount(e.target.value)}
+  //       />
+  //       <button type="submit">Submit</button>
+  //     </form>
+  //   )}
+  // </div>
+  // <div className="separator"></div>
+
+  // {/* Decrease Allowance */}
+  // <div>
+  //   <button onClick={() => setFormVisible("decreaseAllowance")}>
+  //     Allowance -
+  //   </button>
+  //   {formVisible === "decreaseAllowance" && (
+  //     <form
+  //       className="function-form"
+  //       onSubmit={(e) => {
+  //         e.preventDefault();
+  //         decreaseAllowance(dSpender, dAmount);
+  //       }}
+  //     >
+  //       <input
+  //         type="text"
+  //         placeholder="Spender"
+  //         value={dSpender}
+  //         onChange={(e) => setDSpender(e.target.value)}
+  //       />
+  //       <input
+  //         type="number"
+  //         placeholder="Amount"
+  //         value={dAmount}
+  //         onChange={(e) => setDAmount(e.target.value)}
+  //       />
+  //       <button type="submit">Submit</button>
+  //     </form>
+  //   )}
+  // </div>
+  // <div className="separator"></div>
+
+  // {/* Burn */}
+  // <div>
+  //   <button onClick={() => setFormVisible("burn")}>Burn</button>
+  //   {formVisible === "burn" && (
+  //     <form
+  //       className="function-form"
+  //       onSubmit={(e) => {
+  //         e.preventDefault();
+  //         burn(bAmount);
+  //       }}
+  //     >
+  //       <input
+  //         type="number"
+  //         placeholder="Amount"
+  //         value={bAmount}
+  //         onChange={(e) => setBAmount(e.target.value)}
+  //       />
+  //       <button type="submit">Submit</button>
+  //     </form>
+  //   )}
+  // </div>
+  // <div className="separator"></div>
+
+  // {/* Init Ownership */}
+  // <div>
+  //   <button onClick={() => setFormVisible("initOwnership")}>
+  //     Init Ownership
+  //   </button>
+  //   {formVisible === "initOwnership" && (
+  //     <form
+  //       className="function-form"
+  //       onSubmit={(e) => {
+  //         e.preventDefault();
+  //         initOwnership(newOwner);
+  //       }}
+  //     >
+  //       <input
+  //         type="text"
+  //         placeholder="New Owner"
+  //         value={newOwner}
+  //         onChange={(e) => setNewOwner(e.target.value)}
+  //       />
+  //       <button type="submit">Submit</button>
+  //     </form>
+  //   )}
+  // </div>
+  // <div className="separator"></div>
+
+  // {/* Claim Ownership */}
+  // <div>
+  //   <button onClick={claimOwnership}>Claim Ownership</button>
+  // </div>
+
+  //         <ToastContainer
+  //           position="top-right"
+  //           autoClose={5000}
+  //           hideProgressBar={false}
+  //           newestOnTop={false}
+  //           closeOnClick
+  //           rtl={false}
+  //           pauseOnFocusLoss
+  //           draggable
+  //           pauseOnHover
+  //           transition:Bounce
+  //           theme="colored"
+  //         />
+  //       </div>
+  //     </div>
+  //   </div>
+  // );
 }
 
 export default App;
